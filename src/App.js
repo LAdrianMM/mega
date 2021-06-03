@@ -1,10 +1,10 @@
 import './App.css';
-import FormComponent from './components/form';
+import CustomizedSteppers from './components/Stepper';
 
 function App() {
   return (
     <div className="App">
-      <FormComponent />
+      <CustomizedSteppers />
     </div>
   );
 }
