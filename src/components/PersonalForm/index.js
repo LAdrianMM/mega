@@ -1,5 +1,6 @@
 import { makeStyles, TextField, Typography } from '@material-ui/core';
-import React from 'react'
+import React, { useState } from 'react'
+import { ButtonsStepper } from '../index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,18 +30,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const PersonalForm = () => {
+const PersonalForm = ({ setActiveStep, steps, activeStep }) => {
   const classes = useStyles()
+  const [dataTransmitter, setDataTransmitter] = useState({
+    name: '',
+    document: '',
+    birthday: '',
+    phone: '',
+    direction: '',
+    city: ''
+  })
+
+  const handleInputChange = (e) => {
+    setDataTransmitter({
+        ...dataTransmitter,
+        [e.target.name] : e.target.value
+    })
+}
 
   return (
     <div>
       <Typography className={classes.instructions}>Tus datos</Typography>
       <form className={classes.form}>
-        <TextField className={classes.fieldForm} label="Nombre y Apellido" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Documento de Identidad" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Número de Telefono" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Dirección" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)} name='name' className={classes.fieldForm} label="Nombre y Apellido" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)} name='document' className={classes.fieldForm} label="Documento de Identidad" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)} name='phone' className={classes.fieldForm} label="Número de Telefono" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)} name='address' className={classes.fieldForm} label="Dirección" variant="outlined" />
       </form>
+      <ButtonsStepper 
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        steps={steps}
+          /> 
     </div>
   )
 }

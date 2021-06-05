@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, makeStyles, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import React from 'react'
+import React, { useState } from 'react'
+import { ButtonsStepper } from '../index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +34,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const BankForm = () => {
+const BankForm = ({ activeStep, setActiveStep, steps }) => {
   const classes = useStyles()
+  const [bank, setBank] = useState('');
+
+  const handleChange = (e) => {
+    setBank(e.target.value);
+  };
 
   return (
     <div>
@@ -46,8 +52,13 @@ const BankForm = () => {
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
             label="Nombre del Banco"
+            value={bank}
+            onChange={handleChange}
             className={classes.select}
           >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem> 
             <MenuItem value='Bancolombia'>Bancolombia</MenuItem>
             <MenuItem value='Davivienda'>Davivienda</MenuItem>
             <MenuItem value='BBVA'>BBVA</MenuItem>
@@ -56,6 +67,11 @@ const BankForm = () => {
         <TextField className={classes.fieldForm} label="Número de cuenta" variant="outlined" />
         <TextField className={classes.fieldForm} label="Tipo de cuenta" variant="outlined" />
       </form>
+      <ButtonsStepper
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        steps={steps}
+          /> 
     </div>
   )
 }

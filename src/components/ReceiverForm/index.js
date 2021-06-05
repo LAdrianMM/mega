@@ -1,4 +1,6 @@
 import { makeStyles, TextField, Typography } from '@material-ui/core';
+import { useState } from 'react';
+import { ButtonsStepper } from '../index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,20 +30,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ReceiverForm = () => {
+const ReceiverForm = ({ activeStep, setActiveStep, steps }) => {
   const classes = useStyles()
+  const [dataReceiver, setDataReceiver] = useState({
+    name: '',
+    document: '',
+    birthday: '',
+    phone: '',
+    direction: '',
+    city: ''
+  })
+
+  const handleInputChange = (e) => {
+    setDataReceiver({
+        ...dataReceiver,
+        [e.target.name] : e.target.value
+    })
+}
 
   return (
     <div>
       <Typography className={classes.instructions}>Datos de quien recibe</Typography>
       <form className={classes.form}>
-        <TextField className={classes.fieldForm} label="Nombre Completo" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Documento de Identidad" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Fecha de Nacimiento" placeholder='dd/MM/yyyy' variant="outlined" />
-        <TextField className={classes.fieldForm} label="Número de Telefono" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Dirección" variant="outlined" />
-        <TextField className={classes.fieldForm} label="Ciudad" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)} className={classes.fieldForm} name='name' label="Nombre Completo" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)}  className={classes.fieldForm} name='document' label="Documento de Identidad" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)}  className={classes.fieldForm} name='birthday' label="Fecha de Nacimiento" placeholder='dd/MM/yyyy' variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)}  className={classes.fieldForm} name='phone' label="Número de Telefono" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)}  className={classes.fieldForm} name='direction' label="Dirección" variant="outlined" />
+        <TextField onChange={e => handleInputChange(e)}  className={classes.fieldForm} name='city' label="Ciudad" variant="outlined" />
       </form>
+      <ButtonsStepper
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        steps={steps}
+          /> 
     </div>
   )
 }
