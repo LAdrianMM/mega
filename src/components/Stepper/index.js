@@ -190,8 +190,7 @@ export default function CustomizedSteppers() {
 
   const sendWhatsapp = () => {
     let url = `https://api.whatsapp.com/send?phone=56920686539&text=
-		*_MI NEGOCIO_*`
-
+		*_MEGA ENVÍOS_* `
     window.open(url)
   }
 
