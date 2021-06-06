@@ -145,6 +145,18 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginRight: theme.spacing(1),
+    backgroundColor: '#00bb2d',
+
+    '&:hover': {
+      backgroundColor: '#25D366',
+      boxShadow: 'none',
+      border: 'none'
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#DCF8C6',
+      border: 'none'
+    }
   },
   instructions: {
     marginTop: theme.spacing(1),
@@ -214,8 +226,8 @@ export default function CustomizedSteppers() {
             <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
+            <Button color='success' onClick={handleReset} className={classes.button}>
+              Enviar al Whatsapp
             </Button>
           </div>
         ) : (
