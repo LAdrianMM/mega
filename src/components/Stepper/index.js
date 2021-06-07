@@ -179,7 +179,7 @@ function getStepContent(activeStep, setActiveStep, steps) {
 
 export default function CustomizedSteppers() {
   const classes = useStyles()
-  const [activeStep, setActiveStep] = React.useState(2)
+  const [activeStep, setActiveStep] = React.useState(0)
   const steps = getSteps()
 
   return (
