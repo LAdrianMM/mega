@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Stepper, Step, StepLabel, StepConnector, Button, Typography } from '@material-ui/core';
+import { Stepper, Step, StepLabel, StepConnector } from '@material-ui/core';
 import { Check, Settings as SettingsIcon, GroupAdd as GroupAddIcon, VideoLabel as VideoLabelIcon } from '@material-ui/icons';
-import { PersonalForm, ReceiverForm, BankForm} from '../index';
+import { SenderForm, ReceiverForm, BankForm} from '../index';
+import LastStep from '../LastStep';
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -139,28 +140,9 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-  },
-  button: {
-    marginRight: theme.spacing(1),
-    backgroundColor: '#00bb2d',
-
-    '&:hover': {
-      backgroundColor: '#25D366',
-      boxShadow: 'none',
-      border: 'none'
-    },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#DCF8C6',
-      border: 'none'
-    }
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
   form: {
     marginBottom: 15,
@@ -175,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 25,
     width: '90%',
     maxWidth: '678px'
-  }
+  },
 }));
 
 function getSteps() {
@@ -185,7 +167,7 @@ function getSteps() {
 function getStepContent(activeStep, setActiveStep, steps) {
   switch (activeStep) {
     case 0:
-      return <PersonalForm activeStep={activeStep} setActiveStep={setActiveStep} steps={steps} />
+      return <SenderForm activeStep={activeStep} setActiveStep={setActiveStep} steps={steps} />
     case 1:
       return <ReceiverForm activeStep={activeStep} setActiveStep={setActiveStep} steps={steps} />
     case 2:
@@ -196,20 +178,9 @@ function getStepContent(activeStep, setActiveStep, steps) {
 }
 
 export default function CustomizedSteppers() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
-
-  const sendWhatsapp = () => {
-    let url = `https://api.whatsapp.com/send?phone=56920686539&text=
-		*_MEGA ENVÍOS_* `
-    window.open(url)
-  }
-
-  const handleReset = () => {
-    sendWhatsapp()
-    setActiveStep(0);
-  };
+  const classes = useStyles()
+  const [activeStep, setActiveStep] = React.useState(2)
+  const steps = getSteps()
 
   return (
     <div className={classes.root}>
@@ -222,14 +193,7 @@ export default function CustomizedSteppers() {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button color='success' onClick={handleReset} className={classes.button}>
-              Enviar al Whatsapp
-            </Button>
-          </div>
+          <LastStep setActiveStep={setActiveStep} />
         ) : (
           <div>
             <div>

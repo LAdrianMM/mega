@@ -5,12 +5,16 @@ const styles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
   },
+  root: {
+    textAlign: 'center'
+  }
 }))
 
-const ButtonsStepper = ({ activeStep, setActiveStep, steps }) => {
+const ButtonsStepper = ({ activeStep, setActiveStep, steps, type, onClick, disabled }) => {
   const classes = styles()
 
   const handleNext = () => {
+    onClick()
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -19,17 +23,19 @@ const ButtonsStepper = ({ activeStep, setActiveStep, steps }) => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-        Back
+        Volver
       </Button>
       <Button
+        disabled={disabled}
         variant="contained"
         color="primary"
         onClick={handleNext}
         className={classes.button}
+        type={type}
       >
-        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+        {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
       </Button>
     </div>
   )
